@@ -54,6 +54,5 @@ class Product(models.Model):
                        args=[self.id, self.slug])
     
 
-
     def __str__(self) -> str:
         return self.name
