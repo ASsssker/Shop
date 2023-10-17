@@ -11,6 +11,15 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import dotenv_values
+import os
+
+
+GTK_FOLDER = r'C:\Program Files\GTK3-Runtime Win64\bin'
+os.environ['PATH'] = GTK_FOLDER + os.pathsep + os.environ.get('PATH', '')
+
+
+config = dotenv_values()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
+    'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +75,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -131,3 +143,21 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 CART_SESSION_ID = 'cart'
+
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51O06M9IKsuI8k0IniVWHm5m9IRd9lPVb588r1hqBA2xaJcxP98avaRt6gg8u2C1ez2PK7NZLwClNWiiPKDQD8Gsd00kY6F7tOa'
+STRIPE_SECRET_KEY = 'sk_test_51O06M9IKsuI8k0InmIwBJss3k8azaoSNQ08rK6ICJF2FT0PivHBuDAxviuHR8feMTPugjtGuqOZC7y380UAPiRh300V3EJBuZ8'
+STRIPE_API_VERSION = '2022-08-01'
+STRIPE_WEBHOOK_SECRET = 'whsec_531812fba74187529ec63bc8e02b7ab2f0e47d98198f401b1ac277076537790c'
+
+
+
+STATIC_ROOT = BASE_DIR / 'static'
+
+
+EMAIL = config['EMAIL']
+EMAIL_HOST = config['EMAIL_HOST']
+EMAIL_HOST_USER = config['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = config['EMAIL_HOST_PASSWORD']
+EMAIL_POST = config['EMAIL_POST']
+EMAIL_USE_TLS = config['EMAIL_USE_TLS']
